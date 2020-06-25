@@ -1,5 +1,6 @@
-package al.esgi.annualProject.Models;
+package al.esgi.annualProject.Repository;
 
+import al.esgi.annualProject.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
 
