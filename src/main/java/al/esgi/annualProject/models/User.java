@@ -78,7 +78,7 @@ public class User implements UserDetails {
         return this.firstname;
     }
 
-    public String getLastnamename() {
+    public String getLastname() {
         return this.lastname;
     }
 
