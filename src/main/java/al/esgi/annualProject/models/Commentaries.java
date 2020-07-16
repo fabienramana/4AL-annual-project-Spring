@@ -13,12 +13,12 @@ public class Commentaries {
     public Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
-
-    @NotNull
-    @Column(name = "comment", nullable = false)
-    private String comment;
     
     
 }
