@@ -20,8 +20,9 @@ import java.util.stream.Collectors;
 @Data
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", nullable = false)
+    public Integer id;
 
     @NotNull
     @Column(name = "username", nullable = false, unique = true)
