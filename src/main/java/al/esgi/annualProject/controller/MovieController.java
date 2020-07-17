@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import java.util.Optional;
 
@@ -39,16 +38,25 @@ public class MovieController {
     
     @GetMapping(path="/get-api")
     public String getMoviesFromApi() throws IOException, InterruptedException {
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.themoviedb.org/3/movie/now_playing?api_key="+ apiKey))
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, BodyHandlers.ofString());
-        System.out.println(response.body());
+        URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key="+ apiKey);
+        HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setConnectTimeout(5000);
+        con.setReadTimeout(5000);
+        
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while((inputLine = in.readLine()) != null){
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+        String response = content.toString();
+        
         //return response.body();
-        JSONObject json = new JSONObject(response.body());
+        JSONObject json = new JSONObject(response);
         JSONArray results = json.getJSONArray("results");
         StringBuilder str = new StringBuilder();
         Movie movie;
