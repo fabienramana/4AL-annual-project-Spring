@@ -74,10 +74,11 @@ public class MovieController {
             String releaseDate = result.getString("release_date");
             String image = result.getString("poster_path");
             Integer id = result.getInt("id");
+            Integer popularity = result.getInt("popularity");
             Optional<Movie> movieExists = movieRepository.findByapiMovieId(id);
             Movie a = movieExists.orElse(null);
             if (a == null) {
-                movie = new Movie(title, description, releaseDate, image, id);
+                movie = new Movie(title, description, releaseDate, image, id, popularity);
                 movieRepository.save(movie);               
             }
         }

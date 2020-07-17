@@ -39,6 +39,14 @@ public class User implements UserDetails {
     @NotNull
     @Column(name = "lastname", nullable = false)
     private String lastname;
+    
+    @NotNull
+    @Column(name="user_id_android", nullable = false)
+    private String userIdAndroid;
+
+    @NotNull
+    @Column(name="gender", nullable = false)
+    private String gender;
 
     @Column(name = "account_non_expired")
     private boolean accountNonExpired;
@@ -115,6 +123,22 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    public String getUserIdAndroid() {
+        return userIdAndroid;
+    }
+
+    public void setUserIdAndroid(String userIdAndroid) {
+        this.userIdAndroid = userIdAndroid;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setPassword(String password) {
