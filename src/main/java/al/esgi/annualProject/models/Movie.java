@@ -10,7 +10,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id", nullable = false)
-    public Integer id;
+    private Integer id;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -19,4 +19,31 @@ public class Movie {
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
+    
+    public Movie(){        
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

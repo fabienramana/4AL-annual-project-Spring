@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable = false)
-    public Integer id;
+    private Integer id;
 
     @NotNull
     @Column(name = "username", nullable = false, unique = true)
@@ -68,6 +68,10 @@ public class User implements UserDetails {
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
         this.enabled = true;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override
