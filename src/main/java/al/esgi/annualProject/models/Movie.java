@@ -36,16 +36,21 @@ public class Movie {
     @Column(name="popularity")
     private Integer popularity;
     
+    @NotNull
+    @Column(name="categories", nullable = false)
+    private String categories;
+    
     public Movie(){        
     }
     
-    public Movie(String title, String description, String releaseDate, String image, Integer id, Integer popularity){
+    public Movie(String title, String description, String releaseDate, String image, Integer id, Integer popularity, String categories){
         this.name = title;
         this.description = description;
         this.releaseDate = releaseDate;
         this.image = image;
         this.apiMovieId = id;
         this.popularity = popularity;
+        this.categories = categories;
     }
 
     public Integer getId() {
@@ -102,5 +107,13 @@ public class Movie {
 
     public void setPopularity(Integer popularity) {
         this.popularity = popularity;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 }

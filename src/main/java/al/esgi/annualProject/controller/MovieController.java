@@ -1,6 +1,8 @@
 package al.esgi.annualProject.controller;
 
+import al.esgi.annualProject.models.Category;
 import al.esgi.annualProject.models.Movie;
+import al.esgi.annualProject.repository.CategoryRepository;
 import al.esgi.annualProject.repository.MovieRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
     
     public String apiKey = "e80ae4cad06b931beaa5b7f21ea45904";
 
@@ -67,7 +71,7 @@ public class MovieController {
         StringBuilder str = new StringBuilder();
         Movie movie;
         for (Object o : results) {
-            
+            StringBuilder categoriesBuilder = new StringBuilder();
             JSONObject result = (JSONObject) o;
             String title = result.getString("title");
             String description = result.getString("overview");
@@ -75,10 +79,22 @@ public class MovieController {
             String image = result.getString("poster_path");
             Integer id = result.getInt("id");
             Integer popularity = result.getInt("popularity");
+            JSONArray categories = result.optJSONArray("genre_ids");
+            int[] numbers = new int[categories.length()];
+            for (int i = 0; i < categories.length(); ++i) {
+                numbers[i] = categories.optInt(i);
+                Optional<Category> categoryExists = categoryRepository.findByapiCategoryId(numbers[i]);
+                if(i == categories.length()-1){
+                    categoriesBuilder.append(categoryExists.get().getLabel());
+                }
+                else{
+                    categoriesBuilder.append(categoryExists.get().getLabel() + ", ");
+                }
+            }
             Optional<Movie> movieExists = movieRepository.findByapiMovieId(id);
             Movie a = movieExists.orElse(null);
             if (a == null) {
-                movie = new Movie(title, description, releaseDate, image, id, popularity);
+                movie = new Movie(title, description, releaseDate, image, id, popularity, categoriesBuilder.toString());
                 movieRepository.save(movie);               
             }
         }
