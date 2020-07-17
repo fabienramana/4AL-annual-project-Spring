@@ -21,8 +21,8 @@ public class Commentaries {
     @Column(name = "movie_id")
     private Integer movieId;
 
-    @NotNull
-    @Column(name="comment")
+    @Lob
+    @Column(name="comment", nullable = false, columnDefinition = "text", length=3000)
     private String comment;
     
     public Commentaries(){
