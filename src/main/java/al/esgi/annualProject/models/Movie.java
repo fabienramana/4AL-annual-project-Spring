@@ -16,11 +16,31 @@ public class Movie {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "description", nullable = false)
+    @Lob
+    @Column(name = "description", nullable = false, columnDefinition = "text", length=3000)
     private String description;
     
+    @NotNull
+    @Column(name="releaseDate", nullable = false)
+    private String releaseDate;
+    
+    @NotNull
+    @Column(name="api_movie_id")
+    private Integer apiMovieId;
+    
+    @NotNull
+    @Column(name="image_url")
+    private String image;
+    
     public Movie(){        
+    }
+    
+    public Movie(String title, String description, String releaseDate, String image, Integer id){
+        this.name = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.image = image;
+        this.apiMovieId = id;
     }
 
     public Integer getId() {
@@ -45,5 +65,29 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Integer getApiMovieId() {
+        return apiMovieId;
+    }
+
+    public void setApiMovieId(Integer apiMovieId) {
+        this.apiMovieId = apiMovieId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
