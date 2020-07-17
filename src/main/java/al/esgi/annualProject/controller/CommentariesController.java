@@ -31,6 +31,27 @@ public class CommentariesController {
         commentariesRepository.save(comment);
         return "Saved";
     }
+    
+    @GetMapping(path="/{id}")
+    public Commentaries getCommentById(@PathVariable int id){
+        Commentaries comment = commentariesRepository.getOne(id);
+        return comment;
+    }
+    
+    @DeleteMapping(path="{id}")
+    public String deleteCommentById(@PathVariable int id){
+        Commentaries comment = commentariesRepository.getOne(id);
+        commentariesRepository.delete(comment);
+        return "deleted";
+    }
+    
+    @PutMapping(path="{id}")
+    public String modifyCommentById(@PathVariable int id, @RequestBody Commentaries comment){
+        Commentaries commentFound = commentariesRepository.getOne(id);
+        commentFound.setComment(comment.getComment());
+        commentariesRepository.save(commentFound);
+        return "modified";
+    }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Commentaries> getAllCommentaries() {

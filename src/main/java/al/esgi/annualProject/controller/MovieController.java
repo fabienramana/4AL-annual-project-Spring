@@ -36,6 +36,12 @@ public class MovieController {
         return movieRepository.findAll();
     }
     
+    @GetMapping(path="/{id}")
+    public Optional<Movie> getMovieById(@PathVariable int id){
+        Optional<Movie> movie = movieRepository.findById(id);
+        return movie;   
+    }
+    
     @GetMapping(path="/get-api")
     public String getMoviesFromApi() throws IOException, InterruptedException {
         URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key="+ apiKey);
