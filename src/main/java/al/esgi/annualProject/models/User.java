@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name="user")
 @Data
-public class User implements UserDetails {
+public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable = false)
@@ -27,10 +27,6 @@ public class User implements UserDetails {
     @NotNull
     @Column(name = "username", nullable = false, unique = true)
     private String username;
-
-    @NotNull
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @NotNull
     @Column(name = "firstname", nullable = false)
@@ -48,84 +44,48 @@ public class User implements UserDetails {
     @Column(name="gender", nullable = false)
     private String gender;
 
-    @Column(name = "account_non_expired")
-    private boolean accountNonExpired;
-
-    @Column(name = "account_non_locked")
-    private boolean accountNonLocked;
-
-    @Column(name = "credentials_non_expired")
-    private boolean credentialsNonExpired;
-
-    @Column(name = "enabled")
-    private boolean enabled;
-
     public User() {
-        this.accountNonExpired = true;
-        this.accountNonLocked = true;
-        this.credentialsNonExpired = true;
-        this.enabled = true;
     }
 
-    public User(String username, String password, String firstname, String lastname,
+    public User(String username, String firstname, String lastname,
                 String gender, String userIdAndroid) {
         this.username = username;
-        this.password = BCryptManagerUtil.passwordencoder().encode(password);
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
         this.userIdAndroid = userIdAndroid;
-        this.accountNonExpired = true;
-        this.accountNonLocked = true;
-        this.credentialsNonExpired = true;
-        this.enabled = true;
     }
 
     public Integer getId() {
         return id;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstname() {
         return this.firstname;
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public String getLastname() {
         return this.lastname;
     }
 
-    @Override
-    public String getPassword() {
-        return this.password;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    @Override
     public String getUsername() {
         return this.username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserIdAndroid() {
@@ -144,9 +104,4 @@ public class User implements UserDetails {
         this.gender = gender;
     }
 
-    public void setPassword(String password) {
-        if (!password.isEmpty()) {
-            this.password = BCryptManagerUtil.passwordencoder().encode(password);
-        }
-    }
 }
