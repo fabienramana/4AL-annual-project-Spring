@@ -27,6 +27,11 @@ public class OpinionController {
         Movie movie = movieRepository.getOne(opinion.getMovieId());
         Optional<User> user = userRepository.findByUserIdAndroid(opinion.getUserId());
         opinionRepository.save(opinion);
+        Double averageNote = opinionRepository.findAverageNoteByMovie(movie.getId());
+        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(movie.getId());
+        movie.setAverageNote(averageNote);
+        movie.setAverageLikes(averageLikeNote);
+        movieRepository.save(movie);
         return "Saved";
     }
 
@@ -74,17 +79,6 @@ public class OpinionController {
         return toReturn;
     }
 
-    @GetMapping(path="/get-average-note/movie/{id}")
-    public Double getAverageNoteOfMovieById(@PathVariable int id){
-        Double averageNote = opinionRepository.findAverageNoteByMovie(id);
-        return averageNote;
-    }
-
-    @GetMapping(path="/get-average-like-note/movie/{id}")
-    public Double getAverageLikeNoteOfMovieById(@PathVariable int id){
-        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(id);
-        return averageLikeNote;
-    }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Opinion> getAllMovies() {
