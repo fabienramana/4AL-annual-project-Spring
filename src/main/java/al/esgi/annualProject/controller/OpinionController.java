@@ -1,6 +1,5 @@
 package al.esgi.annualProject.controller;
 
-import al.esgi.annualProject.models.Likes;
 import al.esgi.annualProject.models.Movie;
 import al.esgi.annualProject.models.Opinion;
 import al.esgi.annualProject.models.User;
@@ -52,8 +51,22 @@ public class OpinionController {
     }
     
     @GetMapping(path="/last")
-    public Opinion getLastOpinion(){
-        return opinionRepository.findFirstByOrderByIdDesc();
+    public String getLastOpinion(){
+        Opinion opinion = opinionRepository.findFirstByOrderByIdDesc();
+        String toReturn = "{\"comment\":\""+ opinion.getComment() +"\", \"movieId\":"+opinion.getMovieId()+"}";
+        return toReturn;
+    }
+
+    @GetMapping(path="/get-average-note/movie/{id}")
+    public Double getAverageNoteOfMovieById(@PathVariable int id){
+        Double averageNote = opinionRepository.findAverageNoteByMovie(id);
+        return averageNote;
+    }
+
+    @GetMapping(path="/get-average-like-note/movie/{id}")
+    public Double getAverageLikeNoteOfMovieById(@PathVariable int id){
+        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(id);
+        return averageLikeNote;
     }
 
     @GetMapping(path="/all")
