@@ -1,7 +1,6 @@
 package al.esgi.annualProject.controller;
 
 import al.esgi.annualProject.models.Category;
-import al.esgi.annualProject.models.Commentaries;
 import al.esgi.annualProject.models.Movie;
 import al.esgi.annualProject.repository.CategoryRepository;
 import al.esgi.annualProject.repository.MovieRepository;
