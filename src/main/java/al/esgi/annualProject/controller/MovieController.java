@@ -1,6 +1,7 @@
 package al.esgi.annualProject.controller;
 
 import al.esgi.annualProject.models.Category;
+import al.esgi.annualProject.models.Commentaries;
 import al.esgi.annualProject.models.Movie;
 import al.esgi.annualProject.repository.CategoryRepository;
 import al.esgi.annualProject.repository.MovieRepository;
@@ -44,6 +45,14 @@ public class MovieController {
     public Optional<Movie> getMovieById(@PathVariable int id){
         Optional<Movie> movie = movieRepository.findById(id);
         return movie;   
+    }
+
+    @PutMapping(path="/{id}")
+    public String modifyMovieAverageCommentNoteById(@PathVariable int id, @RequestBody Movie movie){
+        Movie movieFound = movieRepository.getOne(id);
+        movieFound.setAverageCommentNote(movie.getAverageCommentNote());
+        movieRepository.save(movieFound);
+        return "modified";
     }
     
     @GetMapping(path="/get-api")

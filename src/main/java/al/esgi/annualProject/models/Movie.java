@@ -40,6 +40,18 @@ public class Movie {
     @Column(name="categories", nullable = false)
     private String categories;
     
+    @NotNull
+    @Column(name="average_note")
+    private Double averageNote;
+    
+    @NotNull
+    @Column(name="average_likes")
+    private Double averageLikes;
+    
+    @NotNull
+    @Column(name="average_comment_note")
+    private Double averageCommentNote;
+    
     public Movie(){        
     }
     
@@ -51,6 +63,9 @@ public class Movie {
         this.apiMovieId = id;
         this.popularity = popularity;
         this.categories = categories;
+        this.averageCommentNote = 0.0;
+        this.averageLikes = 0.0;
+        this.averageNote = 0.0;
     }
 
     public Integer getId() {
@@ -115,5 +130,29 @@ public class Movie {
 
     public void setCategories(String categories) {
         this.categories = categories;
+    }
+
+    public Double getAverageNote() {
+        return averageNote;
+    }
+
+    public void setAverageNote(Double averageNote) {
+        this.averageNote = averageNote;
+    }
+
+    public Double getAverageCommentNote() {
+        return averageCommentNote;
+    }
+
+    public void setAverageCommentNote(Double averageCommentNote) {
+        this.averageCommentNote = averageCommentNote;
+    }
+
+    public Double getAverageLikes() {
+        return averageLikes;
+    }
+
+    public void setAverageLikes(Double averageLikes) {
+        this.averageLikes = averageLikes;
     }
 }
