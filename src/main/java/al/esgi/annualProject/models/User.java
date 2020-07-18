@@ -67,11 +67,14 @@ public class User implements UserDetails {
         this.enabled = true;
     }
 
-    public User(String username, String password, String firstname, String lastname) {
+    public User(String username, String password, String firstname, String lastname,
+                String gender, String userIdAndroid) {
         this.username = username;
         this.password = BCryptManagerUtil.passwordencoder().encode(password);
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender = gender;
+        this.userIdAndroid = userIdAndroid;
         this.accountNonExpired = true;
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;

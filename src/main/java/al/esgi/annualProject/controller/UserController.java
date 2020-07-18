@@ -22,7 +22,8 @@ public class UserController {
         // @RequestParam means it is a parameter from the GET or POST request
         JSONObject jsonObject = new JSONObject(u);
         User user = new User(jsonObject.getString("username"), jsonObject.getString("password"),
-                jsonObject.getString("firstname"), jsonObject.getString("lastname"));
+                jsonObject.getString("firstname"), jsonObject.getString("lastname"),
+                jsonObject.getString("gender"), jsonObject.getString("userIdAndroid"));
         userRepository.save(user);
         return "Saved";
     }
