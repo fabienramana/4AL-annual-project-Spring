@@ -2,9 +2,7 @@ package al.esgi.annualProject.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import al.esgi.annualProject.utils.BCryptManagerUtil;
 import org.json.JSONObject;
 
 import al.esgi.annualProject.repository.UserRepository;

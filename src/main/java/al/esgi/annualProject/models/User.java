@@ -1,19 +1,8 @@
 package al.esgi.annualProject.models;
 
-import al.esgi.annualProject.utils.BCryptManagerUtil;
 import com.sun.istack.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="user")
