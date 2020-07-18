@@ -36,6 +36,23 @@ public class OpinionController {
         return opinion;
     }
     
+    @DeleteMapping(path="/{id}")
+    public String deleteOpinionById(@PathVariable int id){
+        Opinion opinion = opinionRepository.getOne(id);
+        opinionRepository.delete(opinion);
+        return "deleted";
+    }
+    
+    @PutMapping(path="/{id}")
+    public String updateOpinionById(@PathVariable int id, @RequestBody Opinion opinion){
+        Opinion opinionFound = opinionRepository.getOne(id);
+        opinionFound.setComment(opinion.getComment());
+        opinionFound.setIsLiked(opinion.getIsLiked());
+        opinionFound.setNote(opinion.getNote());
+        opinionRepository.save(opinionFound);
+        return "modified";
+    }
+    
     @GetMapping(path="/movie/{id}")
     public List<Opinion> getOpinionsByMovie(@PathVariable int id){
         Movie movie = movieRepository.getOne(id);
