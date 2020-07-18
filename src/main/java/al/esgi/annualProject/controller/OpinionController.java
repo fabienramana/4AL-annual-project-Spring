@@ -10,6 +10,9 @@ import al.esgi.annualProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path="/opinion")
 public class OpinionController {
@@ -23,9 +26,34 @@ public class OpinionController {
     @PostMapping(path="/add")
     public String addNewOpinion(@RequestBody Opinion opinion){
         Movie movie = movieRepository.getOne(opinion.getMovieId());
-        User user = userRepository.findByUserIdAndroid(opinion.getUserId());
+        Optional<User> user = userRepository.findByUserIdAndroid(opinion.getUserId());
         opinionRepository.save(opinion);
         return "Saved";
+    }
+
+    @GetMapping(path="/{id}")
+    public Optional<Opinion> getOpinionById(@PathVariable int id){
+        Optional<Opinion> opinion = opinionRepository.findById(id);
+        return opinion;
+    }
+    
+    @GetMapping(path="/movie/{id}")
+    public List<Opinion> getOpinionsByMovie(@PathVariable int id){
+        Movie movie = movieRepository.getOne(id);
+        List<Opinion> opinions = opinionRepository.findByMovieId(id);
+        return opinions;
+    }
+
+    @GetMapping(path="/user/{id}")
+    public List<Opinion> getOpinionsByUser(@PathVariable String id){
+        Optional<User> user = userRepository.findByUserIdAndroid(id);
+        List<Opinion> opinions = opinionRepository.findByUserId(user.get().getUserIdAndroid());
+        return opinions;
+    }
+    
+    @GetMapping(path="/last")
+    public Opinion getLastOpinion(){
+        return opinionRepository.findFirstByOrderByIdDesc();
     }
 
     @GetMapping(path="/all")
