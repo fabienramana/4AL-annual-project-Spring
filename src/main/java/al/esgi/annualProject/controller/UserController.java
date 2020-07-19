@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/add")
-    public String addNewUser(@RequestBody User u) {
+    public User addNewUser(@RequestBody User u) {
         return userService.addNewUser(u);
     }
 

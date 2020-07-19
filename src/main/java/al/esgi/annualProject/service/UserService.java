@@ -10,9 +10,8 @@ public class UserService{
     @Autowired
     private UserRepository userRepository;
     
-    public String addNewUser(User u){
-        userRepository.save(u);
-        return "Saved";
+    public User addNewUser(User u){
+        return userRepository.save(u);
     }
     
     public Iterable<User> getAllUsers(){

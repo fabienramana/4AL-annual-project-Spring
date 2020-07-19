@@ -24,12 +24,12 @@ public class OpinionController {
     
 
     @PostMapping(path="/add")
-    public String addNewOpinion(@RequestBody Opinion opinion){
+    public Opinion addNewOpinion(@RequestBody Opinion opinion){
         return opinionService.addNewOpinion(opinion);
     }
 
     @GetMapping(path="/{id}")
-    public Optional<Opinion> getOpinionById(@PathVariable int id){
+    public Opinion getOpinionById(@PathVariable int id){
         return opinionService.getOpinionById(id);
     }
     
@@ -39,7 +39,7 @@ public class OpinionController {
     }
     
     @PutMapping(path="/{id}")
-    public String updateOpinionById(@PathVariable int id, @RequestBody Opinion opinion){
+    public Opinion updateOpinionById(@PathVariable int id, @RequestBody Opinion opinion){
         return opinionService.updateOpinionById(id, opinion);
     }
     

@@ -18,7 +18,7 @@ public class MovieController {
     }
 
     @RequestMapping(path="/add", method = RequestMethod.POST) // Map ONLY POST Requests
-    public String addNewMovie (@RequestBody Movie movie) {
+    public Movie addNewMovie (@RequestBody Movie movie) {
         return movieService.addNewMovie(movie);
         
     }
@@ -29,12 +29,12 @@ public class MovieController {
     }
     
     @GetMapping(path="/{id}")
-    public Optional<Movie> getMovieById(@PathVariable int id){
+    public Movie getMovieById(@PathVariable int id){
         return movieService.getMovieById(id);
     }
 
     @PutMapping(path="/{id}")
-    public String modifyMovieAverageCommentNoteById(@PathVariable int id, @RequestBody Movie movie){
+    public Movie modifyMovieAverageCommentNoteById(@PathVariable int id, @RequestBody Movie movie){
         return movieService.modifyMovieAverageCommentNoteById(id, movie);
     }
     

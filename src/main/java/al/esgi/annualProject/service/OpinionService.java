@@ -22,37 +22,35 @@ public class OpinionService {
     UserRepository userRepository;
 
 
-    public String addNewOpinion(Opinion opinion) {
-        Movie movie = movieRepository.getOne(opinion.getMovieId());
+    public Opinion addNewOpinion(Opinion opinion) {
+        Optional<Movie> movie = movieRepository.findById(opinion.getMovieId());
         Optional<User> user = userRepository.findByUserIdAndroid(opinion.getUserId());
-        opinionRepository.save(opinion);
-        Double averageNote = opinionRepository.findAverageNoteByMovie(movie.getId());
-        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(movie.getId());
-        movie.setAverageNote(averageNote);
-        movie.setAverageLikes(averageLikeNote);
-        movieRepository.save(movie);
-        return "Saved";
+        Double averageNote = opinionRepository.findAverageNoteByMovie(movie.get().getId());
+        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(movie.get().getId());
+        movie.get().setAverageNote(averageNote);
+        movie.get().setAverageLikes(averageLikeNote);
+        movieRepository.save(movie.get());
+        return opinionRepository.save(opinion);
     }
 
 
-    public Optional<Opinion> getOpinionById(int id) {
-        Optional<Opinion> opinion = opinionRepository.findById(id);
+    public Opinion getOpinionById(int id) {
+        Opinion opinion = opinionRepository.getOne(id);
         return opinion;
     }
 
     public String deleteOpinionById(int id) {
         Opinion opinion = opinionRepository.getOne(id);
         opinionRepository.delete(opinion);
-        return "deleted";
+        return "{\"id\":" + id + ", status:deleted}";
     }
 
-    public String updateOpinionById(int id, Opinion opinion) {
+    public Opinion updateOpinionById(int id, Opinion opinion) {
         Opinion opinionFound = opinionRepository.getOne(id);
         opinionFound.setComment(opinion.getComment());
         opinionFound.setIsLiked(opinion.getIsLiked());
         opinionFound.setNote(opinion.getNote());
-        opinionRepository.save(opinionFound);
-        return "modified";
+        return opinionRepository.save(opinionFound);
     }
 
     public List<Opinion> getOpinionsByMovie(int id) {

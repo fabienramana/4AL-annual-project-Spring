@@ -15,7 +15,7 @@ public class CategoryController {
     }
 
     @RequestMapping(path="/add", method = RequestMethod.POST)
-    public String addNewCategory (@RequestBody Category category) {
+    public Category addNewCategory (@RequestBody Category category) {
         return categoryService.addNewCategory(category);
     }
 

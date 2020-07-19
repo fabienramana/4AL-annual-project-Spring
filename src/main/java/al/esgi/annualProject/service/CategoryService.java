@@ -18,9 +18,8 @@ public class CategoryService {
 
     public String apiKey = "e80ae4cad06b931beaa5b7f21ea45904";
     
-    public String addNewCategory(Category category){
-        categoryRepository.save(category);
-        return "Saved";
+    public Category addNewCategory(Category category){
+        return categoryRepository.save(category);
     }
     
     public Iterable<Category> getAllCategories(){

@@ -22,25 +22,23 @@ public class MovieService {
 
     public String apiKey = "e80ae4cad06b931beaa5b7f21ea45904";
     
-    public String addNewMovie(Movie movie){
-        movieRepository.save(movie);
-        return "Saved";
+    public Movie addNewMovie(Movie movie){
+        return movieRepository.save(movie);
     }
     
     public Iterable<Movie> getAllMovies(){
         return movieRepository.findAll();
     }
     
-    public Optional<Movie> getMovieById(int id){
-        Optional<Movie> movie = movieRepository.findById(id);
+    public Movie getMovieById(int id){
+        Movie movie = movieRepository.getOne(id);
         return movie;
     }
     
-    public String modifyMovieAverageCommentNoteById(int id, Movie movie){
+    public Movie modifyMovieAverageCommentNoteById(int id, Movie movie){
         Movie movieFound = movieRepository.getOne(id);
         movieFound.setAverageCommentNote(movie.getAverageCommentNote());
-        movieRepository.save(movieFound);
-        return "modified";
+        return movieRepository.save(movieFound);
     }
     
     public String getMoviesFromApi() throws IOException, InterruptedException {
