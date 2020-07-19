@@ -16,21 +16,18 @@ public class User{
     @NotNull
     @Column(name = "username", nullable = false, unique = true)
     private String username;
-
-    @NotNull
-    @Column(name = "firstname", nullable = false)
+    
+    @Column(name = "firstname", nullable = true)
     private String firstname;
-
-    @NotNull
-    @Column(name = "lastname", nullable = false)
+    
+    @Column(name = "lastname", nullable = true)
     private String lastname;
     
     @NotNull
     @Column(name="user_id_android", nullable = false)
     private String userIdAndroid;
-
-    @NotNull
-    @Column(name="gender", nullable = false)
+    
+    @Column(name="gender", nullable = true)
     private String gender;
 
     public User() {
