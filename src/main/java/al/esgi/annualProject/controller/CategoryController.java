@@ -1,44 +1,34 @@
 package al.esgi.annualProject.controller;
 
 import al.esgi.annualProject.models.Category;
-import al.esgi.annualProject.models.Movie;
-import al.esgi.annualProject.models.User;
-import al.esgi.annualProject.repository.CategoryRepository;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import al.esgi.annualProject.service.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/category")
 public class CategoryController {
-    @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryService categoryService;
+    public CategoryController(CategoryService categoryService){
+        this.categoryService = categoryService;
+    }
 
-    public String apiKey = "e80ae4cad06b931beaa5b7f21ea45904";
-
-    @RequestMapping(path="/add", method = RequestMethod.POST) // Map ONLY POST Requests
+    @RequestMapping(path="/add", method = RequestMethod.POST)
     public String addNewCategory (@RequestBody Category category) {
-        categoryRepository.save(category);
-        return "Saved";
+        return categoryService.addNewCategory(category);
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Category> getAllCategories() {
-        // This returns a JSON or XML with the users
-        return categoryRepository.findAll();
+        return categoryService.getAllCategories();
     }
 
     @GetMapping(path="/get-api")
-    public String getMoviesFromApi() throws IOException, InterruptedException {
-        URL url = new URL("https://api.themoviedb.org/3/genre/tv/list?api_key="+ apiKey);
+    public String getCategoriesFromApi() throws IOException, InterruptedException {
+        return categoryService.getCategoriesFromApi();
+    }
+       /* URL url = new URL("https://api.themoviedb.org/3/genre/tv/list?api_key="+ apiKey);
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setConnectTimeout(5000);
@@ -107,5 +97,5 @@ public class CategoryController {
             }
         }
         return "categories saved";
-    }
+    } */
 }
