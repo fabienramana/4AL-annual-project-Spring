@@ -30,8 +30,8 @@ public class MovieService {
         return movieRepository.findAll();
     }
     
-    public Movie getMovieById(int id){
-        Movie movie = movieRepository.getOne(id);
+    public Optional<Movie> getMovieById(int id){
+        Optional<Movie> movie = movieRepository.findById(id);
         return movie;
     }
     
