@@ -34,15 +34,15 @@ public class OpinionService {
     }
 
 
-    public Opinion getOpinionById(int id) {
-        Opinion opinion = opinionRepository.getOne(id);
+    public Optional<Opinion> getOpinionById(int id) {
+        Optional<Opinion> opinion = opinionRepository.findById(id);
         return opinion;
     }
 
     public String deleteOpinionById(int id) {
         Opinion opinion = opinionRepository.getOne(id);
         opinionRepository.delete(opinion);
-        return "{\"id\":" + id + ", status:deleted}";
+        return "{\"id\":" + id + ", status:\"deleted\"}";
     }
 
     public Opinion updateOpinionById(int id, Opinion opinion) {

@@ -29,7 +29,7 @@ public class OpinionController {
     }
 
     @GetMapping(path="/{id}")
-    public Opinion getOpinionById(@PathVariable int id){
+    public Optional<Opinion> getOpinionById(@PathVariable int id){
         return opinionService.getOpinionById(id);
     }
     
