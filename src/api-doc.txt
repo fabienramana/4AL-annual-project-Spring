@@ -1,0 +1,260 @@
+USER : 
+
+name: addUser
+path: /user/add
+method: POST
+body :
+{
+    "username": String,
+    "userIdAndroid": String,
+    "gender": String, (optional)
+    "firstname": String, (optional)
+    "lastname": String (optional)
+}
+response:
+{
+    "id": Integer,
+    "username": String,
+    "userIdAndroid": String,
+    "gender": String,
+    "firstname": String,
+    "lastname": String
+}
+
+
+name: getAllUsers
+path: /user/all
+method: GET
+response:
+[
+    {
+        "id": Integer,
+        "username": String,
+        "userIdAndroid": String,
+        "gender": String,
+        "firstname": String,
+        "lastname": String
+    },
+    {
+        ...
+    }
+]
+
+CATEGORY :
+
+name: getAllCategories
+path: /category/all
+method: GET
+response:
+[
+    {
+        "id": Integer,
+        "label": String,
+        "apiCategoryId": Integer
+    },
+    {
+        ...
+    }
+]
+
+name: getAllCategoriesFromAPI
+path: /category/get-api
+method: GET
+response:
+"categories saved"
+
+
+MOVIE : 
+
+name: findMovieById
+path: /movie/{id}
+method: GET
+response:
+{
+    "id": Integer,
+    "name": String,
+    "description": text,
+    "releaseDate": String,
+    "apiMovieId": Integer,
+    "image": String,
+    "popularity": Integer,
+    "categories": String,
+    "averageNote": Double,
+    "averageLikes": Double,
+    "averageCommentNote": Double
+}
+
+
+name: updateMovieById
+path: /movie/{id}
+method: PUT
+response:
+{
+    "id": Integer,
+    "name": String,
+    "description": text,
+    "releaseDate": String,
+    "apiMovieId": Integer,
+    "image": String,
+    "popularity": Integer,
+    "categories": String,
+    "averageNote": Double,
+    "averageLikes": Double,
+    "averageCommentNote": Double
+}
+
+
+
+name: getAllMovies
+path: /movie/all
+method: GET
+response:
+[
+    {
+        "id": Integer,
+        "name": String,
+        "description": text,
+        "releaseDate": String,
+        "apiMovieId": Integer,
+        "image": String,
+        "popularity": Integer,
+        "categories": String,
+        "averageNote": Double,
+        "averageLikes": Double,
+        "averageCommentNote": Double
+    },
+    {
+        ...
+    }
+]
+
+
+name: getMoviesFromAPI
+path: /movie/get-api
+method: GET
+response:
+"movies saved"
+
+
+OPINION :
+
+name: addNewOpinion
+path: /opinion/add
+method: POST
+response:
+{
+    "id": Integer,
+    "note": Double,
+    "isLiked": boolean,
+    "comment": text,
+    "userId": String,
+    "movieId": Integer
+}
+
+
+
+name: getOpinionById
+path: /opinion/{id}
+method: GET
+response:
+{
+    "id": Integer,
+    "note": Double,
+    "isLiked": boolean,
+    "comment": text,
+    "userId": String,
+    "movieId": Integer
+}
+
+
+name: updateOpinionById
+path: /opinion/{id}
+method: PUT
+response:
+{
+    "id": Integer,
+    "note": Double,
+    "isLiked": boolean,
+    "comment": text,
+    "userId": String,
+    "movieId": Integer
+}
+
+
+name: deleteOpinionById
+path: /opinion/{id}
+method: DELETE
+response:
+{
+    "id": Integer,
+    "status": String
+}
+
+
+name: getOpinionsByMovie
+path: /opinion/movie/{id}
+response:
+[
+    {
+        "id": Integer,
+        "note": Double,
+        "isLiked": boolean,
+        "comment": text,
+        "userId": String,
+        "movieId": Integer
+    },
+    {
+        ...
+    }
+]
+
+
+
+name: getOpinionsByUser
+path: /opinion/user/{id}
+response:
+[
+    {
+        "id": Integer,
+        "note": Double,
+        "isLiked": boolean,
+        "comment": text,
+        "userId": String,
+        "movieId": Integer
+    },
+    {
+        ...
+    }
+]
+
+
+name: getLastOpinion
+path: /opinion/last
+method: GET
+response:
+{
+    "id": Integer,
+    "note": Double,
+    "isLiked": boolean,
+    "comment": text,
+    "userId": String,
+    "movieId": Integer
+}
+
+
+name: getAllOpinions
+path: /opinion/all
+response:
+[
+    {
+        "id": Integer,
+        "note": Double,
+        "isLiked": boolean,
+        "comment": text,
+        "userId": String,
+        "movieId": Integer
+    },
+    {
+        ...
+    }
+]
