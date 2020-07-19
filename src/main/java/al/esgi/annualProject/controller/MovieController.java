@@ -1,62 +1,47 @@
 package al.esgi.annualProject.controller;
 
-import al.esgi.annualProject.models.Category;
 import al.esgi.annualProject.models.Movie;
-import al.esgi.annualProject.repository.CategoryRepository;
-import al.esgi.annualProject.repository.MovieRepository;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import al.esgi.annualProject.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/movie")
 public class MovieController {
-    @Autowired
-    private MovieRepository movieRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
-    
-    public String apiKey = "e80ae4cad06b931beaa5b7f21ea45904";
+    MovieService movieService;
+    public MovieController(MovieService movieService){
+        this.movieService = movieService;
+    }
 
     @RequestMapping(path="/add", method = RequestMethod.POST) // Map ONLY POST Requests
     public String addNewMovie (@RequestBody Movie movie) {
-        movieRepository.save(movie);
-        return "Saved";
+        return movieService.addNewMovie(movie);
+        
     }
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Movie> getAllMovies() {
-        // This returns a JSON or XML with the users
-        return movieRepository.findAll();
+        return movieService.getAllMovies();
     }
     
     @GetMapping(path="/{id}")
     public Optional<Movie> getMovieById(@PathVariable int id){
-        Optional<Movie> movie = movieRepository.findById(id);
-        return movie;   
+        return movieService.getMovieById(id);
     }
 
     @PutMapping(path="/{id}")
     public String modifyMovieAverageCommentNoteById(@PathVariable int id, @RequestBody Movie movie){
-        Movie movieFound = movieRepository.getOne(id);
-        movieFound.setAverageCommentNote(movie.getAverageCommentNote());
-        movieRepository.save(movieFound);
-        return "modified";
+        return movieService.modifyMovieAverageCommentNoteById(id, movie);
     }
     
     @GetMapping(path="/get-api")
     public String getMoviesFromApi() throws IOException, InterruptedException {
-        URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key="+ apiKey);
+        return movieService.getMoviesFromApi();
+       /* URL url = new URL("https://api.themoviedb.org/3/movie/now_playing?api_key="+ apiKey);
         HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setConnectTimeout(5000);
@@ -73,7 +58,6 @@ public class MovieController {
         con.disconnect();
         String response = content.toString();
         
-        //return response.body();
         JSONObject json = new JSONObject(response);
         JSONArray results = json.getJSONArray("results");
         StringBuilder str = new StringBuilder();
@@ -106,7 +90,7 @@ public class MovieController {
                 movieRepository.save(movie);               
             }
         }
-        return "movies saved";
+        return "movies saved";*/
     }
     
 }
