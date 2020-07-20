@@ -2,10 +2,8 @@ package al.esgi.annualProject.controller;
 
 
 import al.esgi.annualProject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import al.esgi.annualProject.repository.UserRepository;
 import al.esgi.annualProject.models.User;
 
 @RestController 

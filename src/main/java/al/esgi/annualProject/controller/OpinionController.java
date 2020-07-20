@@ -1,14 +1,7 @@
 package al.esgi.annualProject.controller;
 
-import al.esgi.annualProject.models.Movie;
 import al.esgi.annualProject.models.Opinion;
-import al.esgi.annualProject.models.User;
-import al.esgi.annualProject.repository.MovieRepository;
-import al.esgi.annualProject.repository.OpinionRepository;
-import al.esgi.annualProject.repository.UserRepository;
-import al.esgi.annualProject.service.MovieService;
 import al.esgi.annualProject.service.OpinionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
