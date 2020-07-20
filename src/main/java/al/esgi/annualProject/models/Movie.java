@@ -48,7 +48,6 @@ public class Movie {
     @Column(name="average_likes")
     private Double averageLikes;
     
-    @NotNull
     @Column(name="average_comment_note")
     private Double averageCommentNote;
     
@@ -63,7 +62,6 @@ public class Movie {
         this.apiMovieId = id;
         this.popularity = popularity;
         this.categories = categories;
-        this.averageCommentNote = 0.0;
         this.averageLikes = 0.0;
         this.averageNote = 0.0;
     }
