@@ -25,11 +25,12 @@ public class OpinionService {
     public Opinion addNewOpinion(Opinion opinion) {
         Optional<Movie> movie = movieRepository.findById(opinion.getMovieId());
         Optional<User> user = userRepository.findByUserIdAndroid(opinion.getUserId());
-        Double averageNote = opinionRepository.findAverageNoteByMovie(movie.get().getId());
-        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(movie.get().getId());
-        movie.get().setAverageNote(averageNote);
-        movie.get().setAverageLikes(averageLikeNote);
-        movieRepository.save(movie.get());
+        Movie movieFound = movieRepository.getOne(opinion.getMovieId());
+        Double averageNote = opinionRepository.findAverageNoteByMovie(movieFound.getId());
+        Double averageLikeNote = opinionRepository.findAverageLikeNoteByMovie(movieFound.getId());
+        movieFound.setAverageNote(averageNote);
+        movieFound.setAverageLikes(averageLikeNote);
+        movieRepository.save(movieFound);
         return opinionRepository.save(opinion);
     }
 
